@@ -1,0 +1,31 @@
+data:
+ pretrain_data_dir: '/home/daixingshuo/pre_train_web/data'
+ content_columns_name: 'content'
+tokenizer:
+ max_len: 2048
+model:
+ vocab_size: 50000
+ hidden_size: 512
+ intermediate_size: 2752
+ num_hidden_layers: 8
+ num_attention_heads: 16
+ num_key_value_heads: 4
+ rope_scaling: None
+ hidden_act: 'silu'
+ max_position_embeddings: 128
+ initializer_range: 0.02
+ rms_norm_eps: 1e-06
+ use_cache: False
+ pad_token_id: 0
+ bos_token_id: 1
+ eos_token_id: 2
+ tie_word_embeddings: False
+ pretraining_tp: 1
+ max_new_tokens: 100
+train:
+ learning_rate: 1e-4
+ epochs: 50
+ batch_size: 2
+ logging_step: 100
+ writer_dir: '/home/daixingshuo/pre_train_web/log.txt'
+device: 'cuda:0'
