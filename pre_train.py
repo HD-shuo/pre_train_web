@@ -64,6 +64,7 @@ if __name__ == "__main__":
     #获取词汇表大小
     conf.vocab_size = web_tokenizer.vocab_size
     model = WebEncoderForPreTraining(model_conf).to(conf.device)
+    print(model)
     optimizer = torch.optim.Adam(model.parameters(), lr=conf.train.learning_rate)
     dir_path = conf.data.pretrain_data_dir
     content_columns_name = conf.data.content_columns_name

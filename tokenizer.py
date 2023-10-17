@@ -103,6 +103,8 @@ def build_masked_language_task(seq_tokens:str, vocab:dict, vocab_token_ids_list:
     lenght = seq_tokens.__len__()
     #mask掉一个序列中15%的部分
     masked_seq_num = round(lenght*0.15)
+    if masked_seq_num == 0:
+        masked_seq_num = 1
     mask_kinfe1 = round(masked_seq_num*0.8)
     mask_kinfe2 = round(masked_seq_num*0.9)
     mask_indexs = random.sample(range(lenght), k=masked_seq_num)
@@ -147,8 +149,11 @@ def build_pretrain_task(all_token_list:str, max_len:int, vocab_token_ids_list:li
     less_max_len_token_list = []
     # 1、将超过最大长度的文本拆分切开
     for token_list in all_token_list:
-        token_nested_lists = split_token_by_maxlen(token_list=token_list, max_len=max_len, vocab=vocab)
-        less_max_len_token_list.extend(token_nested_lists)
+        if len(token_list) == 0:
+            pass
+        else:
+            token_nested_lists = split_token_by_maxlen(token_list=token_list, max_len=max_len, vocab=vocab)
+            less_max_len_token_list.extend(token_nested_lists)
 
     # 4、合并上下句token，同时构建mlm任务
     # 对上下句创建随机掩码,生成掩码序列与掩码位置索引,并进行文本合并

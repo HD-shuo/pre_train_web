@@ -673,7 +673,7 @@ class WebEncoderForPreTraining(WebPreTrainedModel):
             output_hidden_states: Optional[bool] = None,
             attention_mask: Optional[torch.Tensor] = None,
             return_dict: Optional[bool] = None,
-            masked_lm_labels: Optional[bool] = None,
+            masked_lm_labels = None,
             ):
         output = self.encoder(input_ids, position_ids, inputs_embeds,use_cache,output_attentions,output_hidden_states,attention_mask,return_dict,)
         sequence_output = output[0]
@@ -683,6 +683,6 @@ class WebEncoderForPreTraining(WebPreTrainedModel):
             masked_lm_loss = loss_fct(prediction_scores.view(-1, self.config.vocab_size), masked_lm_labels.view(-1))
             return masked_lm_loss
         else:
-            pass
+            return prediction_scores
 
     
